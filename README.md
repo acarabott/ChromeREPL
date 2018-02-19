@@ -27,12 +27,15 @@ The [Console Command Line API](https://developers.google.com/web/tools/chrome-de
 - Select the tab you want to connect to
 - Open the console for that tab in Chrome, you should see `"Sublime Text connected"`
 - Select some JavaScript in Sublime Text and hit `Shift Enter` to run it
+    + If you have nothing selected it will execute the current line
+    + You can change the shortcut in `Preferences > Package Settings > Chrome Console > Key Bindings`
+    + This shortcut is only enabled for `.js`, `.jsx`, `.ts`, and `.tsx` files, you can also change this in the same file.
 
 You can only be connected to one tab at a time.
 
 ## Thanks
 
-The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but aims to be far less ambitious and thus easier to maintain.
+The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but is far less ambitious, opinionated, and hopefully easier to maintain.
 
 This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools).
 
