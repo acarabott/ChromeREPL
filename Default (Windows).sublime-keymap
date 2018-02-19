@@ -1,0 +1,13 @@
+[
+  {
+    "command": "chrome_console_evaluate",
+    "keys":    ["shift+enter"],
+    "context": [
+      {
+        "key":      "selector",
+        "operator": "equal",
+        "operand":  "(source.js, source.jsx, source.ts, source.tsx)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+    "path": {
+        "osx": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "windows": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "linux": "/usr/bin/google-chrome"
+    },
+    "hostname": "localhost",
+    "port": 9222,
+    // https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference
+    "include_command_line_api": true
+}

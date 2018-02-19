@@ -1,0 +1,14 @@
+[
+  {
+    "caption": "Chrome Console: Start Chrome",
+    "command": "chrome_console_start_chrome"
+  },
+  {
+    "caption": "Chrome Console: Connect",
+    "command": "chrome_console_connect"
+  },
+  {
+    "caption": "Chrome Console: Evaluate Selection",
+    "command": "chrome_console_evaluate"
+  }
+]
