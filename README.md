@@ -4,6 +4,12 @@ A simple SublimeText 3 Plugin to remotely execute JavaScript code in Chrome, bec
 
 Input and output are logged to the console.
 
+## Installation
+
+Clone into your `Packages` directory. e.g. `/Users/ac/Library/Application Support/Sublime Text 3/Packages` on macOS.
+
+Will be added to Package Control after some testing...
+
 ## Setup
 
 Chrome needs to be started with a special flag enabled, so it won't work if Chrome is already running.
