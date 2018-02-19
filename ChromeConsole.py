@@ -10,7 +10,7 @@ from requests.exceptions import ConnectionError
 
 # include the lib directory
 this_dir = os.path.dirname(os.path.realpath(__file__))
-lib_dir = os.path.join(this_dir, 'lib')
+lib_dir = os.path.join(this_dir, 'libs')
 if lib_dir not in sys.path:
     sys.path.append(lib_dir)
 
