@@ -124,15 +124,15 @@ class ChromeConsoleStartChromeCommand(sublime_plugin.WindowCommand):
 
     self.try_count = 0
 
-    def create_chrome():
+    def connect():
       if self.try_count < 10:
         self.try_count += 1
         try:
           connect_to_chrome()
         except ConnectionError as e:
-          sublime.set_timeout(create_chrome, 500)
+          sublime.set_timeout(connect, 500)
 
-    create_chrome()
+    connect()
     self.window.status_message("Chrome connected at localhost:{}".format(chrome_port))
 
 
