@@ -1,8 +1,8 @@
 # Chrome Console
 
-A simple SublimeText 3 Plugin to remotely execute JavaScript code in Chrome, because typing in the console sucks.
+A SublimeText 3 Plugin to remotely execute JavaScript code in Chrome, because Chrome isn't a text editor.
 
-Input and output are logged to the console.
+![Screencast](img/screencast.gif)
 
 ## Installation
 
