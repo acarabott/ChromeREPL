@@ -7,5 +7,6 @@
     "hostname": "localhost",
     "port": 9222,
     // https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference
-    "include_command_line_api": true
+    "include_command_line_api": true,
+    "chrome_flags": []
 }
