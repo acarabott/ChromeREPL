@@ -37,9 +37,12 @@ def is_chrome_running():
   if chrome is None:
     return False
 
-  response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
-                                                     settings.get('port')))
-  return False if response is None else True
+  try:
+    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
+                                                       settings.get('port')))
+    return False if response is None else True
+  except requests.exceptions.ConnectionError as e:
+    return False
 
 
 def is_connected():
