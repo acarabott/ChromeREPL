@@ -121,7 +121,9 @@ class ChromeConsoleStartChromeCommand(sublime_plugin.WindowCommand):
     chrome_path = settings.get('path')[sublime.platform()]
     chrome_port = settings.get('port')
 
-    cmd = [chrome_path, '--remote-debugging-port={}'.format(chrome_port)]
+    user_flags = settings.get("chrome_flags")
+    flags = ['--remote-debugging-port={}'.format(chrome_port)] + user_flags
+    cmd = [chrome_path] + flags
 
     subprocess.Popen(cmd)
 
