@@ -271,3 +271,11 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
         print_text = '`{}`'.format(result['type'])
 
       chrome_print(expression=print_text, method=method, prefix='out:')
+
+
+class ChromeConsoleClearCommand(sublime_plugin.WindowCommand):
+  def is_enabled(self):
+    return is_chrome_running()
+
+  def run(self):
+    chrome_evaluate("console.clear()")

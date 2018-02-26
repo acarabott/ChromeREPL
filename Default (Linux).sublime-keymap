@@ -9,5 +9,16 @@
         "operand":  "(source.js, source.jsx, source.ts, source.tsx)"
       }
     ]
+  },
+  {
+    "command": "chrome_console_clear",
+    "keys":    ["ctrl+shift+c"],
+    "context": [
+      {
+        "key":      "selector",
+        "operator": "equal",
+        "operand":  "(source.js, source.jsx, source.ts, source.tsx)"
+      }
+    ]
   }
 ]

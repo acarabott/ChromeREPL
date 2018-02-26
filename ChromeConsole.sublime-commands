@@ -10,5 +10,9 @@
   {
     "caption": "Chrome Console: Evaluate Selection",
     "command": "chrome_console_evaluate"
+  },
+  {
+    "caption": "Chrome Console: Clear Console",
+    "command": "chrome_console_clear"
   }
 ]
