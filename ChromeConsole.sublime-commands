@@ -4,6 +4,10 @@
     "command": "chrome_console_start_chrome"
   },
   {
+    "caption": "Chrome Console: Restart Chrome with debugging enabled",
+    "command": "chrome_console_restart_chrome"
+  },
+  {
     "caption": "Chrome Console: Connect",
     "command": "chrome_console_connect"
   },

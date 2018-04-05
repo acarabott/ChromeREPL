@@ -141,6 +141,17 @@ class ChromeConsoleStartChromeCommand(sublime_plugin.WindowCommand):
     self.window.status_message("Chrome connected at localhost:{}".format(chrome_port))
 
 
+class ChromeConsoleRestartChromeCommand(sublime_plugin.WindowCommand):
+  def __init__(self, window):
+    super().__init__(window)
+
+  def is_enabled(self):
+    return is_chrome_running()
+
+  def run(self):
+    chrome.Page.navigate(url="chrome://quit")
+
+
 class ChromeConsoleConnectCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_chrome_running()
