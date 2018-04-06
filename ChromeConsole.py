@@ -357,6 +357,7 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
     # FIXME this is a bit hacky and could be simplified/unified
     if response is not None:
       result = response['result']['result']
+
       if 'exceptionDetails' in response['result'].keys():
         method = "error"
         print_text = '`{}`'.format(response['result']['exceptionDetails']['exception']['description'])
@@ -365,7 +366,9 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
         print_text = expression
       elif 'value' in result.keys() and result['value'] is not None:
         method = "log"
-        print_text = '`"{}"`'.format(result['value'])
+        template = '`"{}"`' if result['type'] == 'string' else '`{}`'
+        value = str(result['value']).lower() if result['type'] == 'boolean' else result['value']
+        print_text = template.format(value)
       elif 'subtype' in result.keys():
         method = "log"
         print_text = '`{}`'.format(result['subtype'])
