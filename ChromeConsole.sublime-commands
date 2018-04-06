@@ -4,7 +4,7 @@
     "command": "chrome_console_start_chrome"
   },
   {
-    "caption": "Chrome Console: Restart Chrome with remote debugging enabled",
+    "caption": "Chrome Console: Restart Chrome with remote debugging (did you set Chrome to restore tabs?)",
     "command": "chrome_console_restart_chrome"
   },
   {
