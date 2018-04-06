@@ -141,6 +141,8 @@ def connect_to_chrome():
   except requests.exceptions.ConnectionError as e:
     return False
 
+  sublime.active_window().run_command("chrome_console_connect_to_tab")
+
 
 def interface_to_chrome_exists():
   global chrome
