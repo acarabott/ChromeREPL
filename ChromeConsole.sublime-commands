@@ -4,12 +4,16 @@
     "command": "chrome_console_start_chrome"
   },
   {
-    "caption": "Chrome Console: Restart Chrome with debugging enabled",
+    "caption": "Chrome Console: Restart Chrome with remote debugging enabled",
     "command": "chrome_console_restart_chrome"
   },
   {
-    "caption": "Chrome Console: Connect",
-    "command": "chrome_console_connect"
+    "caption": "Chrome Console: Connect to Chrome",
+    "command": "chrome_console_connect_to_chrome"
+  },
+  {
+    "caption": "Chrome Console: Connect to Tab",
+    "command": "chrome_console_connect_to_tab"
   },
   {
     "caption": "Chrome Console: Evaluate Selection",
@@ -18,5 +22,19 @@
   {
     "caption": "Chrome Console: Clear Console",
     "command": "chrome_console_clear"
+  },
+  {
+    "caption": "Chrome Console: Reload Page",
+    "command": "chrome_console_reload_page",
+    "args": { "ignoreCache": "False" }
+  },
+  {
+    "caption": "Chrome Console: Reload Page (Ignore Cache)",
+    "command": "chrome_console_reload_page",
+    "args": { "ignoreCache": "True" }
+  },
+  {
+    "caption": "Chrome Console: Open Inspector",
+    "command": "chrome_console_open_inspector"
   }
 ]
