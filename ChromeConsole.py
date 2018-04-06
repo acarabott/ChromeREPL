@@ -243,7 +243,7 @@ class ChromeConsoleConnectToChromeCommand(sublime_plugin.WindowCommand):
 
 class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return interface_to_chrome_exists()
+    return is_connected()
 
   def run(self):
     def is_user_tab(tab):
