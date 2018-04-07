@@ -233,19 +233,16 @@ class ChromeConsoleRestartChromeCommand(sublime_plugin.WindowCommand):
           start_chrome()
 
 
-class ChromeConsoleConnectToChromeCommand(sublime_plugin.WindowCommand):
-  def is_enabled(self):
-    return is_chrome_running_with_remote_debugging() and not is_connected()
-
-  def run(self):
-    connect_to_chrome()
-
-
 class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return is_connected()
+    return is_chrome_running_with_remote_debugging()
 
   def run(self):
+    if not is_connected():
+      connect_to_chrome()
+      if not is_connected():
+        return
+
     def is_user_tab(tab):
       is_page = tab['type'] == 'page'
       is_devtools = tab['url'].find('chrome-devtools://') != -1

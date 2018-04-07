@@ -8,10 +8,6 @@
     "command": "chrome_console_restart_chrome"
   },
   {
-    "caption": "Chrome Console: Connect to Chrome",
-    "command": "chrome_console_connect_to_chrome"
-  },
-  {
     "caption": "Chrome Console: Connect to Tab",
     "command": "chrome_console_connect_to_tab"
   },
