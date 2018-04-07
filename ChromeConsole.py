@@ -78,7 +78,7 @@ def start_chrome():
   def connect():
     time.sleep(0.5)
     global try_count, connected
-    if try_count < 10:
+    if try_count < 5:
       try_count += 1
       try:
         connected = connect_to_chrome()
