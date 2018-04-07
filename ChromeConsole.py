@@ -354,7 +354,7 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
     evaluate_expression = wrap_object_literal_expression_if_needed(expression)
     response = chrome_evaluate(evaluate_expression)
     # print the result to the console as a string
-    # FIXME this is a bit hacky and could be simplified/unified
+
     if response is not None:
       result = response['result']['result']
 
