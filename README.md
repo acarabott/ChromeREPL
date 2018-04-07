@@ -61,8 +61,6 @@ The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas
 
 This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools).
 
-All dependencies are included to make life easier: [requests](http://docs.python-requests.org/en/master/), [websocket-client](https://pypi.python.org/pypi/websocket-client), [six](https://pypi.python.org/pypi/six) and [psutil](https://pypi.python.org/pypi/psutil).
-
 ## Author
 
 Arthur Carabott - [arthurcarabott.com](https://arthurcarabott.com)
