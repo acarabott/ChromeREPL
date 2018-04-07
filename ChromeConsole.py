@@ -98,27 +98,14 @@ def start_chrome():
 
 
 def get_chrome_process():
-  paths_to_check = []
-
-  def make_chrome_path(basename):
-    return os.path.join(os.path.dirname(get_chrome_path()), basename)
-
-  if sublime.platform() == "linux":
-    is_chromium = os.path.basename(get_chrome_path()) == "chromium-browser"
-
-    if is_chromium:
-      paths_to_check = [get_chrome_path()]
-    else:
-      basenames = ['chrome', 'google-chrome']
-      paths_to_check = [make_chrome_path(basename) for basename in basenames]
-  else:
-    paths_to_check = [get_chrome_path()]
+  basenames_to_check = [os.path.basename(get_chrome_path())]
 
   for process in psutil.process_iter(attrs=['exe', 'status']):
-    path_matches = 'exe' in process.info and process.info['exe'] in paths_to_check
+    basename_matches = ('exe' in process.info and
+                        os.path.basename(process.info['exe']) in basenames_to_check)
     is_zombie = 'status' in process.info and process.info['status'] == 'zombie'
 
-    if path_matches and not is_zombie:
+    if basename_matches and not is_zombie:
       return process
 
   return None
