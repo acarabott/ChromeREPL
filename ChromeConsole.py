@@ -6,6 +6,7 @@ import sys
 import subprocess
 import psutil
 import requests
+import time
 from requests.exceptions import ConnectionError
 
 # include the lib directory
@@ -21,7 +22,6 @@ import PyChromeDevTools
 
 chrome = None
 settings = None
-connected_tab = None
 
 STATUS_KEY = 'chrome-console'
 
@@ -71,21 +71,21 @@ def start_chrome():
     sublime.error_message("Could not start Chrome, check the path in your settings")
     return False
 
-  global try_count
+  global try_count, connected
   try_count = 0
   connected = False
 
   def connect():
+    time.sleep(0.5)
     global try_count, connected
-
     if try_count < 10:
       try_count += 1
       try:
         connected = connect_to_chrome()
         if not connected:
-          sublime.set_timeout(connect, 500)
+          connect()
       except ConnectionError as e:
-        sublime.set_timeout(connect, 500)
+        connect()
     else:
       connected = False
 
@@ -93,6 +93,7 @@ def start_chrome():
 
   if not connected:
     sublime.error_message("Failed to connect to Chrome")
+
   return connected
 
 
@@ -272,9 +273,6 @@ class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
       sublime.error_message("Sublime could not connect to tab. Did it close?")
 
     set_tab_status()
-
-    global connected_tab
-    connected_tab = tab
 
 
 class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
