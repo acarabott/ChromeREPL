@@ -1,7 +1,7 @@
 {
     "path": {
         "osx": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-        "windows": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "windows": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         "linux": "/usr/bin/google-chrome"
     },
     "auto_open_devtools": false,
