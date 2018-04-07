@@ -1,18 +1,27 @@
 # Chrome Console
 
-A SublimeText 3 Plugin to remotely execute JavaScript code in Chrome, because Chrome isn't a text editor.
+
+[![Sublime Text 3](https://img.shields.io/badge/Sublime%20Text-3-brightgreen.svg?style=for-the-badge)](https://www.sublimetext.com/) ![Python 3.3](https://img.shields.io/badge/Python-3.3-blue.svg?style=for-the-badge) [![apm](https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+
+
+A SublimeText 3 Plugin to execute JavaScript code in Chrome, because Chrome isn't your text editor of choice.
+
+Interact with your your running webapps! Live code your brains out!
 
 ![Screencast](img/screencast.gif)
 
 ## Installation
 
-Clone into your `Packages` directory. e.g. `/Users/ac/Library/Application Support/Sublime Text 3/Packages` on macOS.
+Via Package Control (easiest! 👍👍👍)
 
-Will be added to Package Control after some testing...
+Alternatively, clone this repo into your  `Packages` directory. e.g. `~/Library/Application Support/Sublime Text 3/Packages/` on macOS.
 
 ## Starting Chrome
 
-Chrome needs to be started with a special flag 🏳️ (`--remote-debugging-port`). Don't worry, commands are provided to do this for you 😅.
+Chrome needs to be started with a special flag 🏳️🏳️🏳️ (`--remote-debugging-port`).
+
+Don't worry, commands are provided to do this for you 😅.
 
 1. If you haven't opened Chrome, use the `Chrome Console: Start Chrome` command.
 2. If Chrome is already running, use `Chrome Console: Restart Chrome with remote debugging`*
