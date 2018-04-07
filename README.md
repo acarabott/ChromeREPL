@@ -4,22 +4,25 @@
 [![Sublime Text 3](https://img.shields.io/badge/Sublime%20Text-3-brightgreen.svg?style=for-the-badge)](https://www.sublimetext.com/) ![Python 3.3](https://img.shields.io/badge/Python-3.3-blue.svg?style=for-the-badge) [![apm](https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 
+A SublimeText 3 Plugin to use Chrome as your [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop).
 
-A SublimeText 3 Plugin to execute JavaScript code in Chrome, because Chrome isn't your text editor of choice.
+Execute JavaScript in your browser. Interact with your running webapps. Live code your brains out!
 
-Interact with your your running webapps! Live code your brains out!
+### Why?
+
+Because Chrome ain't no text editor. Anything longer than a line is a pain, and so is recalling what you typed earlier.
 
 ![Screencast](img/screencast.gif)
 
 ## Installation
 
-Via Package Control (easiest! 👍👍👍)
+Via Package Control (recommended! 👍👍👍)
 
 Alternatively, clone this repo into your  `Packages` directory. e.g. `~/Library/Application Support/Sublime Text 3/Packages/` on macOS.
 
 ## Starting Chrome
 
-Chrome needs to be started with a special flag 🏳️🏳️🏳️ (`--remote-debugging-port`).
+Chrome needs to be started with a special flag 🏳️ (`--remote-debugging-port`).
 
 Don't worry, commands are provided to do this for you 😅.
 
@@ -45,7 +48,6 @@ Don't worry, commands are provided to do this for you 😅.
 - `Clear Console` <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>C</kbd>
 - `Reload Page` <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>R</kbd>
 - `Reload Page (Ignore Cache)` <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>Alt</kbd> <kbd>R</kbd>
-- `Open Developer Tools` *(will open in a new tab, Chrome does not allow you to open the built in Developer Tools window)*
 
 ## Settings
 
@@ -57,7 +59,7 @@ Don't worry, commands are provided to do this for you 😅.
 
 ## Thanks
 
-The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but is far less ambitious, less opinionated, and hopefully easier to maintain.
+The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but is far less ambitious, not as opinionated, and thus easier to maintain.
 
 This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools).
 
