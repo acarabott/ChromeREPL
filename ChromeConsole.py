@@ -65,7 +65,11 @@ def start_chrome():
 
   cmd = [get_chrome_path()] + flags
 
-  subprocess.Popen(cmd)
+  try:
+    subprocess.Popen(cmd)
+  except Exception as e:
+    sublime.error_message("Could not start Chrome, check the path in your settings")
+    return False
 
   global try_count
   try_count = 0
@@ -85,6 +89,9 @@ def start_chrome():
       connected = False
 
   connect()
+
+  if not connected:
+    sublime.error_message("Failed to connect to Chrome")
   return connected
 
 
@@ -257,7 +264,11 @@ class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
     # not using connect_targetID so that chrome stores the connected tab
     chrome.connect(tab_index, False)
 
-    chrome_print("'Sublime Text connected'")
+    try:
+      chrome_print("'Sublime Text connected'")
+    except BrokenPipeError as e:
+      sublime.error_message("Sublime could not connect to tab. Did it close?")
+
     set_tab_status()
 
     global connected_tab
@@ -287,8 +298,7 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
         expression = self.view.substr(sel)
         self.execute(expression)
       except Exception as e:
-        print("except me", expression)
-        # self.view.window().run_command('chrome_console_connect')
+        sublime.error_message("Executing code failed! Check if still connected")
 
     # highlight
     self.view.add_regions(self.HIGHLIGHT_KEY,
