@@ -10,42 +10,49 @@ Clone into your `Packages` directory. e.g. `/Users/ac/Library/Application Suppor
 
 Will be added to Package Control after some testing...
 
-## Setup
+## Starting Chrome
 
-Chrome needs to be started with a special flag enabled, so it won't work if Chrome is already running.
+Chrome needs to be started with a special flag 🏳️ (`--remote-debugging-port`). Don't worry, commands are provided to do this for you 😅.
 
-The plugin provides a command to boot Chrome with the flag enabled. The path to Google Chrome can be set in `Preferences > Package Settings > Chrome Console > Settings`.
+1. If you haven't opened Chrome, use the `Chrome Console: Start Chrome` command.
+2. If Chrome is already running, use `Chrome Console: Restart Chrome with remote debugging`*
 
-*You can point this at Chromium, or Chrome Canary to use it alongside regular Chrome*
-
-### Additional options
-
-You can set the port used for the remote connection, there's no need to change this unless you have a good reason to.
-
-The [Console Command Line API](https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference) can also be enabled/disabled.
+>**this will quit and re-open Chrome, if you want to preserve your tabs, make sure you have set this behaviour in Chrome's settings: `On start-up: Continue where you left off`.*
 
 ## Usage
 
-- Quit Chrome if it is already running and you're not using Chromium or Canary
-- Open the `Command Palette` (`cmd shift p` on a mac)
-- Type in `Chrome`, select `Start Chrome` and hit `Enter`
-- Open the `Command Palette` again, this time type `Chrome Connect` and hit `Enter`
-- Select the tab you want to connect to
-- Open the console for that tab in Chrome, you should see `"Sublime Text connected"`
-- Select some JavaScript in Sublime Text and hit `Shift Enter` to run it
-    + If you have nothing selected it will execute the current line
-    + You can change the shortcut in `Preferences > Package Settings > Chrome Console > Key Bindings`
-    + This shortcut is only enabled for `.js`, `.jsx`, `.ts`, and `.tsx` files, you can also change this in the same file.
+1. Start/Restart Chrome as above
+2. Run the `Chrome Console: Connect to Tab` command
+3. Select the tab you want to connect to
+4. You should see `"Sublime Text connected"` in the Chrome Developer Tools console
+5. Use <kbd>Shift</kbd> <kbd>Enter</kbd> in Sublime Text to execute JavaScript code:
+    - If you have nothing selected it will execute the current line
+    - With code selected it will execute just the selection
 
-You can only be connected to one tab at a time.
+>Note: You can only be connected to one tab at a time, this is a Chrome limitation.
+
+### Additional commands
+
+- `Clear Console` <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>C</kbd>
+- `Reload Page` <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>R</kbd>
+- `Reload Page (Ignore Cache)` <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>Alt</kbd> <kbd>R</kbd>
+- `Open Developer Tools` *(will open in a new tab, Chrome does not allow you to open the built in Developer Tools window)*
+
+## Settings
+
+- 📁 Path to Chrome (can be Chrome, Canary, or Chromium)
+- 🔧 Automatically opening the Developer Tools for every new window
+- 🏳️ Additional chrome flags
+- ⌨️ Enabling the [Command Line API](https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference)
+- 🏠 Custom hostname and port
 
 ## Thanks
 
-The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but is far less ambitious, opinionated, and hopefully easier to maintain.
+The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but is far less ambitious, less opinionated, and hopefully easier to maintain.
 
 This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools).
 
-All dependencies are included to make life easier: [requests](http://docs.python-requests.org/en/master/), [websocket-client](https://pypi.python.org/pypi/websocket-client) and [six](https://pypi.python.org/pypi/six).
+All dependencies are included to make life easier: [requests](http://docs.python-requests.org/en/master/), [websocket-client](https://pypi.python.org/pypi/websocket-client), [six](https://pypi.python.org/pypi/six) and [psutil](https://pypi.python.org/pypi/psutil).
 
 ## Author
 
