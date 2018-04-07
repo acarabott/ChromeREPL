@@ -83,76 +83,6 @@ def get_chrome_path():
   return os.path.realpath(settings.get('path')[sublime.platform()])
 
 
-def is_process_chrome(process):
-  return 'exe' in process.info and process.info['exe'] == get_chrome_path()
-
-
-def is_chrome_running():
-  for process in psutil.process_iter(attrs=['exe']):
-    if 'exe' in process.info and process.info['exe'] == get_chrome_path():
-      return True
-
-  return False
-
-
-def is_chrome_running_with_remote_debugging():
-  if not is_chrome_running():
-    return False
-
-  try:
-    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
-                                                       settings.get('port')))
-    return False if response is None else True
-  except requests.exceptions.ConnectionError as e:
-    return False
-
-
-def set_tab_status():
-  global chrome
-  if chrome is not None:
-    for window in sublime.windows():
-      for view in window.views():
-        status = "ChromeConsole Tab: {}".format(chrome.current_tab['title'])
-        view.set_status(STATUS_KEY, status)
-
-
-def erase_status():
-  for window in sublime.windows():
-    for view in window.views():
-      view.erase_status(STATUS_KEY)
-
-
-def connect_to_chrome():
-  if not is_chrome_running():
-    return
-
-  try:
-    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
-                                                       settings.get('port')))
-
-    if response is None:
-      return
-
-    global chrome
-    chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
-    set_tab_status()
-
-  except requests.exceptions.ConnectionError as e:
-    return False
-
-  sublime.active_window().run_command("chrome_console_connect_to_tab")
-
-
-def interface_to_chrome_exists():
-  global chrome
-  return chrome is not None
-
-
-def is_connected():
-  global chrome
-  return interface_to_chrome_exists() and chrome.ws.connected
-
-
 def start_chrome():
   chrome_port = settings.get('port')
 
@@ -186,7 +116,78 @@ def start_chrome():
   return connected
 
 
+def get_chrome_process():
+  paths_to_check = []
+
+  def make_chrome_path(basename):
+    return os.path.join(os.path.dirname(get_chrome_path()), basename)
+
+  paths_to_check = ([make_chrome_path(basename) for basename in ['chrome', 'google-chrome']]
+    if sublime.platform() == "linux"
+    else [get_chrome_path()])
+
+
+  for process in psutil.process_iter(attrs=['exe', 'status']):
+    path_matches = 'exe' in process.info and process.info['exe'] in paths_to_check
+    is_zombie = 'status' in process.info and process.info['status'] == 'zombie'
+
+    if path_matches and not is_zombie:
+      return process
+
+  return None
+
+
+def is_chrome_running():
+  return get_chrome_process() is not None
+
+
+def is_chrome_running_with_remote_debugging():
+  if not is_chrome_running():
+    return False
+
+  try:
+    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
+                                                       settings.get('port')))
+    return False if response is None else True
+  except requests.exceptions.ConnectionError as e:
+    return False
+
+
+def connect_to_chrome():
+  if not is_chrome_running_with_remote_debugging():
+    return
+
+  try:
+    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
+                                                       settings.get('port')))
+
+    if response is None:
+      return
+
+    global chrome
+    chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
+    set_tab_status()
+
+  except requests.exceptions.ConnectionError as e:
+    return
+
+  sublime.active_window().run_command("chrome_console_connect_to_tab")
+
+
+def interface_to_chrome_exists():
+  global chrome
+  return is_chrome_running_with_remote_debugging() and  chrome is not None
+
+
+def is_connected():
+  global chrome
+  return interface_to_chrome_exists() and chrome.ws.connected
+
+
 def chrome_evaluate(expression):
+  if not is_connected():
+    return
+
   includeCommandLineAPI = settings.get('include_command_line_api', False)
   response = chrome.Runtime.evaluate(expression=expression,
                                      objectGroup='console',
@@ -201,6 +202,21 @@ def chrome_evaluate(expression):
 def chrome_print(expression, method='log', prefix='', color='rgb(150, 150, 150)'):
   log_expression = 'console.{}(`%cST {}`, "color:{};", {})'.format(method, prefix, color, expression)
   chrome_evaluate(log_expression)
+
+
+def set_tab_status():
+  global chrome
+  if chrome is not None:
+    for window in sublime.windows():
+      for view in window.views():
+        status = "ChromeConsole Tab: {}".format(chrome.current_tab['title'])
+        view.set_status(STATUS_KEY, status)
+
+
+def erase_status():
+  for window in sublime.windows():
+    for view in window.views():
+      view.erase_status(STATUS_KEY)
 
 
 # Commands
