@@ -80,7 +80,7 @@ def plugin_unloaded():
 # ------------------------------------------------------------------------------
 
 def get_chrome_path():
-  return settings.get('path')[sublime.platform()]
+  return os.path.realpath(settings.get('path')[sublime.platform()])
 
 
 def is_process_chrome(process):
