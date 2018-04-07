@@ -4,7 +4,6 @@ import re
 import os
 import sys
 import subprocess
-import webbrowser
 
 # Dependency loading
 # ------------------------------------------------------------------------------
@@ -392,14 +391,3 @@ class ChromeConsoleReloadPageCommand(sublime_plugin.WindowCommand):
     chrome.Page.reload(args={"ignoreCache": ignoreCache == "True"})
 
 
-class ChromeConsoleOpenDeveloperToolsCommand(sublime_plugin.WindowCommand):
-  def is_enabled(self):
-    return is_connected()
-
-  def run(self):
-    global connected_tab
-    if connected_tab is not None:
-      frontend_url = connected_tab['devtoolsFrontendUrl']
-      frontend_url = frontend_url.replace("/devtools/", "", 1)
-      url = "chrome-devtools://devtools/bundled/{}".format(frontend_url)
-      webbrowser.open(url, new=1)

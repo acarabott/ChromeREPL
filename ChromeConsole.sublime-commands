@@ -28,9 +28,5 @@
     "caption": "Chrome Console: Reload Page (Ignore Cache)",
     "command": "chrome_console_reload_page",
     "args": { "ignoreCache": "True" }
-  },
-  {
-    "caption": "Chrome Console: Open Developer Tools",
-    "command": "chrome_console_open_developer_tools"
   }
 ]
