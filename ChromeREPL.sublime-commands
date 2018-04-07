@@ -1,0 +1,32 @@
+[
+  {
+    "caption": "Chrome REPL: Start Chrome",
+    "command": "chrome_repl_start_chrome"
+  },
+  {
+    "caption": "Chrome REPL: Restart Chrome with remote debugging (did you set Chrome to restore tabs?)",
+    "command": "chrome_repl_restart_chrome"
+  },
+  {
+    "caption": "Chrome REPL: Connect to Tab",
+    "command": "chrome_repl_connect_to_tab"
+  },
+  {
+    "caption": "Chrome REPL: Evaluate Selection",
+    "command": "chrome_repl_evaluate"
+  },
+  {
+    "caption": "Chrome REPL: Clear Console",
+    "command": "chrome_repl_clear"
+  },
+  {
+    "caption": "Chrome REPL: Reload Page",
+    "command": "chrome_repl_reload_page",
+    "args": { "ignoreCache": "False" }
+  },
+  {
+    "caption": "Chrome REPL: Reload Page (Ignore Cache)",
+    "command": "chrome_repl_reload_page",
+    "args": { "ignoreCache": "True" }
+  }
+]

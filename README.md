@@ -1,4 +1,4 @@
-# Chrome Console
+# ChromeREPL
 
 
 [![Sublime Text 3](https://img.shields.io/badge/Sublime%20Text-3-brightgreen.svg?style=for-the-badge)](https://www.sublimetext.com/) ![Python 3.3](https://img.shields.io/badge/Python-3.3-blue.svg?style=for-the-badge) [![apm](https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
@@ -23,15 +23,15 @@ Chrome needs to be started with a special flag 🏳️🏳️🏳️ (`--remote-
 
 Don't worry, commands are provided to do this for you 😅.
 
-1. If you haven't opened Chrome, use the `Chrome Console: Start Chrome` command.
-2. If Chrome is already running, use `Chrome Console: Restart Chrome with remote debugging`*
+1. If you haven't opened Chrome, use the `Chrome REPL: Start Chrome` command.
+2. If Chrome is already running, use `Chrome REPL: Restart Chrome with remote debugging`*
 
 >**this will quit and re-open Chrome, if you want to preserve your tabs, make sure you have set this behaviour in Chrome's settings: `On start-up: Continue where you left off`.*
 
 ## Usage
 
 1. Start/Restart Chrome as above
-2. Run the `Chrome Console: Connect to Tab` command
+2. Run the `Chrome REPL: Connect to Tab` command
 3. Select the tab you want to connect to
 4. You should see `"Sublime Text connected"` in the Chrome Developer Tools console
 5. Use <kbd>Shift</kbd> <kbd>Enter</kbd> in Sublime Text to execute JavaScript code:
@@ -64,3 +64,5 @@ This uses a *ever so slightly* modified version of [PyChromeDevTools](https://gi
 ## Author
 
 Arthur Carabott - [arthurcarabott.com](https://arthurcarabott.com)
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoffee.com/f1NHjKL6t)

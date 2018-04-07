@@ -12,15 +12,15 @@
                 "children":
                 [
                     {
-                        "caption": "ChromeConsole",
+                        "caption": "ChromeREPL",
                         "children":
                         [
                             {
                                 "caption": "Settings",
                                 "command": "edit_settings", "args":
                                 {
-                                    "base_file": "${packages}/ChromeConsole/ChromeConsole.sublime-settings",
-                                    "default": "// ChromeConsole Settings - User\n{\n\t$0\n}\n"
+                                    "base_file": "${packages}/ChromeREPL/ChromeREPL.sublime-settings",
+                                    "default": "// ChromeREPL Settings - User\n{\n\t$0\n}\n"
                                 }
                             },
                             {
@@ -30,8 +30,8 @@
                                 "caption": "Key Bindings",
                                 "command": "edit_settings", "args":
                                 {
-                                    "base_file": "${packages}/ChromeConsole/Default (${platform}).sublime-keymap",
-                                    "default": "// ChromeConsole Keymap - User\n{\n\t$0\n}\n"
+                                    "base_file": "${packages}/ChromeREPL/Default (${platform}).sublime-keymap",
+                                    "default": "// ChromeREPL Keymap - User\n{\n\t$0\n}\n"
                                 }
                             }
                         ]

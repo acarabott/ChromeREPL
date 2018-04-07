@@ -23,7 +23,7 @@ import PyChromeDevTools
 chrome = None
 settings = None
 
-STATUS_KEY = 'chrome-console'
+STATUS_KEY = 'chrome-repl'
 
 
 # Plugin setup / teardown
@@ -32,7 +32,7 @@ STATUS_KEY = 'chrome-console'
 
 def plugin_loaded():
   global settings
-  settings = sublime.load_settings('ChromeConsole.sublime-settings')
+  settings = sublime.load_settings('ChromeREPL.sublime-settings')
 
   try:
     connect_to_chrome()
@@ -104,8 +104,8 @@ def get_chrome_process():
   basenames_to_check = (["chrome", "google-chrome"] if is_linux_chrome else [user_basename])
 
   for process in psutil.process_iter(attrs=['exe', 'status']):
-    basename_matches = ('exe' in process.info and process.info['exe'] is not None
-                        and os.path.basename(process.info['exe']) in basenames_to_check)
+    basename_matches = ('exe' in process.info and process.info['exe'] is not None and
+                        os.path.basename(process.info['exe']) in basenames_to_check)
     is_zombie = 'status' in process.info and process.info['status'] == 'zombie'
 
     if basename_matches and not is_zombie:
@@ -145,7 +145,7 @@ def connect_to_chrome():
   global chrome
   chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
   set_tab_status()
-  sublime.active_window().run_command("chrome_console_connect_to_tab")
+  sublime.active_window().run_command("chrome_repl_connect_to_tab")
   return True
 
 
@@ -184,7 +184,7 @@ def set_tab_status():
   if chrome is not None:
     for window in sublime.windows():
       for view in window.views():
-        status = "ChromeConsole Tab: {}".format(chrome.current_tab['title'])
+        status = "ChromeREPL Tab: {}".format(chrome.current_tab['title'])
         view.set_status(STATUS_KEY, status)
 
 
@@ -198,7 +198,7 @@ def erase_status():
 # ------------------------------------------------------------------------------
 
 
-class ChromeConsoleStartChromeCommand(sublime_plugin.WindowCommand):
+class ChromeReplStartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return not is_chrome_running()
 
@@ -211,7 +211,7 @@ class ChromeConsoleStartChromeCommand(sublime_plugin.WindowCommand):
     self.window.status_message(msg)
 
 
-class ChromeConsoleRestartChromeCommand(sublime_plugin.WindowCommand):
+class ChromeReplRestartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_chrome_running()
 
@@ -223,7 +223,7 @@ class ChromeConsoleRestartChromeCommand(sublime_plugin.WindowCommand):
       start_chrome()
 
 
-class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
+class ChromeReplConnectToTabCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_chrome_running_with_remote_debugging()
 
@@ -265,9 +265,9 @@ class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
     set_tab_status()
 
 
-class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
-  HIGHLIGHT_KEY = 'chromeconsole-eval'
-  HIGHLIGHT_SCOPE = 'chromeconsole-eval'
+class ChromeReplEvaluate(sublime_plugin.TextCommand):
+  HIGHLIGHT_KEY = 'chromerepl-eval'
+  HIGHLIGHT_SCOPE = 'chromerepl-eval'
 
   def is_enabled(self):
     return is_connected()
@@ -366,7 +366,7 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
       chrome_print(expression=print_text, method=method, prefix='out:')
 
 
-class ChromeConsoleClearCommand(sublime_plugin.WindowCommand):
+class ChromeReplClearCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_connected()
 
@@ -374,10 +374,9 @@ class ChromeConsoleClearCommand(sublime_plugin.WindowCommand):
     chrome_evaluate("console.clear()")
 
 
-class ChromeConsoleReloadPageCommand(sublime_plugin.WindowCommand):
+class ChromeReplReloadPageCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_connected()
 
   def run(self, ignoreCache="False"):
     chrome.Page.reload(args={"ignoreCache": ignoreCache == "True"})
-
