@@ -4,9 +4,9 @@ import re
 import os
 import sys
 import subprocess
-
-# Dependency loading
-# ------------------------------------------------------------------------------
+import psutil
+import requests
+from requests.exceptions import ConnectionError
 
 # include the lib directory
 this_dir = os.path.dirname(os.path.realpath(__file__))
@@ -14,35 +14,7 @@ lib_dir = os.path.join(this_dir, 'libs')
 if lib_dir not in sys.path:
     sys.path.append(lib_dir)
 
-import requests
-from requests.exceptions import ConnectionError
 import PyChromeDevTools
-
-
-def add_dependency(name):
-  # adapted from https://github.com/wbond/package_control/blob/master/package_control/sys_path.py
-  dependency_dir = os.path.join(lib_dir, name)
-
-  ver = u'st%s' % sublime.sys.version_info.major
-  plat = sublime.platform()
-  arch = sublime.arch()
-
-  dep_paths = {
-    'all': os.path.join(dependency_dir, 'all'),
-    'ver': os.path.join(dependency_dir, ver),
-    'plat': os.path.join(dependency_dir, u'%s_%s' % (ver, plat)),
-    'arch': os.path.join(dependency_dir, u'%s_%s_%s' % (ver, plat, arch))
-  }
-
-  for path in dep_paths.values():
-    if os.path.exists(path) and path not in sys.path:
-      sys.path.append(path)
-
-
-add_dependency("psutil")
-
-import psutil
-
 
 # Global variables
 # ------------------------------------------------------------------------------
