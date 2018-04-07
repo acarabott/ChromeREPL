@@ -5,7 +5,6 @@ import os
 import sys
 import subprocess
 import webbrowser
-from requests.exceptions import ConnectionError
 
 # Dependency loading
 # ------------------------------------------------------------------------------
@@ -17,6 +16,7 @@ if lib_dir not in sys.path:
     sys.path.append(lib_dir)
 
 import requests
+from requests.exceptions import ConnectionError
 import PyChromeDevTools
 
 
