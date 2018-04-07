@@ -81,8 +81,9 @@ def start_chrome():
     if try_count < 10:
       try_count += 1
       try:
-        connect_to_chrome()
-        connected = True
+        connected = connect_to_chrome()
+        if not connected:
+          sublime.set_timeout(connect, 500)
       except ConnectionError as e:
         sublime.set_timeout(connect, 500)
     else:
@@ -144,16 +145,17 @@ def is_chrome_running_with_remote_debugging():
 
 def connect_to_chrome():
   if not is_chrome_running_with_remote_debugging():
-    return
+    return False
 
   response = request_json_from_chrome()
   if response is None:
-    return
+    return False
 
   global chrome
   chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
   set_tab_status()
   sublime.active_window().run_command("chrome_console_connect_to_tab")
+  return True
 
 
 def interface_to_chrome_exists():
