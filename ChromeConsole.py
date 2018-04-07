@@ -111,36 +111,33 @@ def is_chrome_running():
   return get_chrome_process() is not None
 
 
+def request_json_from_chrome():
+  try:
+    return requests.get('http://{}:{}/json'.format(settings.get('hostname'),
+                                                   settings.get('port')))
+  except requests.exceptions.ConnectionError as e:
+    return None
+
+
 def is_chrome_running_with_remote_debugging():
   if not is_chrome_running():
     return False
 
-  try:
-    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
-                                                       settings.get('port')))
-    return False if response is None else True
-  except requests.exceptions.ConnectionError as e:
-    return False
+  response = request_json_from_chrome()
+  return response is not None
 
 
 def connect_to_chrome():
   if not is_chrome_running_with_remote_debugging():
     return
 
-  try:
-    response = requests.get('http://{}:{}/json'.format(settings.get('hostname'),
-                                                       settings.get('port')))
-
-    if response is None:
-      return
-
-    global chrome
-    chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
-    set_tab_status()
-
-  except requests.exceptions.ConnectionError as e:
+  response = request_json_from_chrome()
+  if response is None:
     return
 
+  global chrome
+  chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
+  set_tab_status()
   sublime.active_window().run_command("chrome_console_connect_to_tab")
 
 
@@ -211,11 +208,11 @@ class ChromeConsoleRestartChromeCommand(sublime_plugin.WindowCommand):
     return is_chrome_running()
 
   def run(self):
-    for process in psutil.process_iter(attrs=['exe']):
-      if is_process_chrome(process):
-          process.terminate()
-          process.wait()
-          start_chrome()
+    process = get_chrome_process()
+    if process is not None:
+      process.terminate()
+      process.wait()
+      start_chrome()
 
 
 class ChromeConsoleConnectToTabCommand(sublime_plugin.WindowCommand):
