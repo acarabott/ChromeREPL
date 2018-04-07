@@ -95,9 +95,7 @@ def get_chrome_process():
     return os.path.join(os.path.dirname(get_chrome_path()), basename)
 
   paths_to_check = ([make_chrome_path(basename) for basename in ['chrome', 'google-chrome']]
-    if sublime.platform() == "linux"
-    else [get_chrome_path()])
-
+                    if sublime.platform() == "linux" else [get_chrome_path()])
 
   for process in psutil.process_iter(attrs=['exe', 'status']):
     path_matches = 'exe' in process.info and process.info['exe'] in paths_to_check
@@ -148,7 +146,7 @@ def connect_to_chrome():
 
 def interface_to_chrome_exists():
   global chrome
-  return is_chrome_running_with_remote_debugging() and  chrome is not None
+  return is_chrome_running_with_remote_debugging() and chrome is not None
 
 
 def is_connected():
@@ -337,8 +335,8 @@ class ChromeConsoleEvaluate(sublime_plugin.TextCommand):
     # evaluate the expression
     evaluate_expression = wrap_object_literal_expression_if_needed(expression)
     response = chrome_evaluate(evaluate_expression)
-    # print the result to the console as a string
 
+    # print the result to the Chrome console as a string
     if response is not None:
       result = response['result']['result']
 
@@ -377,5 +375,4 @@ class ChromeConsoleReloadPageCommand(sublime_plugin.WindowCommand):
 
   def run(self, ignoreCache="False"):
     chrome.Page.reload(args={"ignoreCache": ignoreCache == "True"})
-
 
