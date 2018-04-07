@@ -30,7 +30,7 @@
     "args": { "ignoreCache": "True" }
   },
   {
-    "caption": "Chrome Console: Open Inspector",
-    "command": "chrome_console_open_inspector"
+    "caption": "Chrome Console: Open Developer Tools",
+    "command": "chrome_console_open_developer_tools"
   }
 ]

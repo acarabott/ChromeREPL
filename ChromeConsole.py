@@ -392,7 +392,7 @@ class ChromeConsoleReloadPageCommand(sublime_plugin.WindowCommand):
     chrome.Page.reload(args={"ignoreCache": ignoreCache == "True"})
 
 
-class ChromeConsoleOpenInspector(sublime_plugin.WindowCommand):
+class ChromeConsoleOpenDeveloperToolsCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_connected()
 
