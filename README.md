@@ -18,7 +18,7 @@ Because Chrome ain't no text editor. Anything longer than a line is a pain, and 
 
 Via Package Control (recommended! 👍👍👍)
 
-Alternatively, clone this repo into your  `Packages` directory. e.g. `~/Library/Application Support/Sublime Text 3/Packages/` on macOS.
+Alternatively, clone this repo into your  `Packages` directory. e.g. `~/Library/Application Support/Sublime Text 3/Packages/` on macOS. If you do this you will need to open the Command Palette and run `Package Control: Satisfy Dependencies`.
 
 ## Starting Chrome
 
