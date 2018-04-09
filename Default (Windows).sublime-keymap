@@ -31,17 +31,5 @@
         "operand":  "(source.js, source.jsx, source.ts, source.tsx, text.plain)"
       }
     ]
-  },
-  {
-    "command": "chrome_repl_reload_page",
-    "args":    { "ignoreCache": "True" },
-    "keys":    ["ctrl+shift+alt+r"],
-    "context": [
-      {
-        "key":      "selector",
-        "operator": "equal",
-        "operand":  "(source.js, source.jsx, source.ts, source.tsx, text.plain)"
-      }
-    ]
   }
 ]
