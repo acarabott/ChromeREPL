@@ -1,7 +1,7 @@
 [
   {
     "command": "chrome_repl_evaluate",
-    "keys":    ["shift+enter"],
+    "keys":    ["alt+enter"],
     "context": [
       {
         "key":      "selector",
