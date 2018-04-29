@@ -265,7 +265,7 @@ class ChromeReplConnectToTabCommand(sublime_plugin.WindowCommand):
     set_tab_status()
 
 
-class ChromeReplEvaluate(sublime_plugin.TextCommand):
+class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
   HIGHLIGHT_KEY = 'chromerepl-eval'
   HIGHLIGHT_SCOPE = 'chromerepl-eval'
 
