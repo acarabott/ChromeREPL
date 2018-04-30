@@ -163,10 +163,6 @@ def chrome_evaluate(expression):
   if not is_connected():
     return
 
-  expression = expression.strip()
-  if expression[-1] == ";":
-    expression = expression[0::-1]
-
   includeCommandLineAPI = settings.get('include_command_line_api', False)
   response = chrome.Runtime.evaluate(expression=expression,
                                      objectGroup='console',
@@ -179,6 +175,10 @@ def chrome_evaluate(expression):
 
 
 def chrome_print(expression, method='log', prefix='', color='rgb(150, 150, 150)'):
+  expression = expression.strip()
+  if expression[-1] == ";":
+    expression = expression[0:-1]
+
   log_expression = 'console.{}(`%cST {}`, "color:{};", {})'.format(method, prefix, color, expression)
   chrome_evaluate(log_expression)
 
