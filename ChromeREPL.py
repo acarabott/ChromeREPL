@@ -352,7 +352,7 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
       if 'exceptionDetails' in response['result'].keys():
         method = "error"
         print_text = '`{}`'.format(response['result']['exceptionDetails']['exception']['description'])
-      elif 'description' in result.keys():
+      elif 'description' in result.keys() and 'value' not in result.keys():
         method = "log"
         print_text = expression
       elif 'value' in result.keys() and result['value'] is not None:
