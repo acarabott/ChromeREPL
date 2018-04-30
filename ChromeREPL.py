@@ -366,6 +366,10 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
       elif 'type' in result.keys():
         method = "log"
         print_text = '`{}`'.format(result['type'])
+      else:
+        # shouldn't reach here, included for debug
+        method = "log"
+        print_text = expression
 
       chrome_print(expression=print_text, method=method, prefix='out:')
 
