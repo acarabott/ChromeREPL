@@ -33,11 +33,7 @@ STATUS_KEY = 'chrome-repl'
 def plugin_loaded():
   global settings
   settings = sublime.load_settings('ChromeREPL.sublime-settings')
-
-  try:
-    connect_to_chrome()
-  except ConnectionError as e:
-    pass
+  # TODO settings listeners
 
 
 def plugin_unloaded():
