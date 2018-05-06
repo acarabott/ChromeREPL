@@ -41,7 +41,7 @@ Don't worry, commands are provided to do this for you 😅.
     - If you have nothing selected it will execute the current line
     - With code selected it will execute just the selection
 
->Note: You can only be connected to one tab at a time, this is a Chrome limitation.
+>Note: Each Sublime tab can be connected to one Chrome tab.
 
 ### Additional commands
 
