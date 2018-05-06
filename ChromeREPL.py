@@ -2,18 +2,12 @@ import sublime
 import sublime_plugin
 import subprocess
 
-import ChromeREPL.libs.ChromeREPLHelpers as ChromeREPLHelpers
-from ChromeREPL.libs.ChromeREPLConnection import ChromeREPLConnection
+import ChromeREPL.ChromeREPLHelpers as ChromeREPLHelpers
+from ChromeREPL.ChromeREPLConnection import ChromeREPLConnection
 
 
-# Plugin setup / teardown
+# Plugin teardown
 # ------------------------------------------------------------------------------
-
-
-def plugin_loaded():
-  settings = sublime.load_settings('ChromeREPL.sublime-settings')
-  ChromeREPLConnection.settings = settings
-
 
 def plugin_unloaded():
   ChromeREPLConnection.close_all_instances()

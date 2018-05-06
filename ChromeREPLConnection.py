@@ -2,13 +2,12 @@ import sublime
 import requests
 import re
 import time
-import ChromeREPL.libs.ChromeREPLHelpers as ChromeREPLHelpers
+import ChromeREPL.ChromeREPLHelpers as ChromeREPLHelpers
 import ChromeREPL.libs.GotoWindow as GotoWindow
 import ChromeREPL.libs.PyChromeDevTools as PyChromeDevTools
 
 
 class ChromeREPLConnection():
-  settings = None
   instances = {}
   STATUS_KEY = 'chrome-repl'
 
@@ -38,7 +37,7 @@ class ChromeREPLConnection():
 
   def activate_tab(tab_id):
     try:
-      settings = ChromeREPLConnection.settings
+      settings = sublime.load_settings('ChromeREPL.sublime-settings')
       url = 'http://{}:{}/json/activate/{}'.format(settings.get('hostname'),
                                                    settings.get('port'),
                                                    tab_id)
@@ -67,7 +66,7 @@ class ChromeREPLConnection():
     if response is None:
       return False
 
-    settings = ChromeREPLConnection.settings
+    settings = sublime.load_settings('ChromeREPL.sublime-settings')
     self.chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
     self.set_tab_status()
     sublime.active_window().run_command('chrome_repl_connect_to_tab')
@@ -133,7 +132,7 @@ class ChromeREPLConnection():
     if not self.is_connected():
       return
 
-    settings = ChromeREPLConnection.settings
+    settings = sublime.load_settings('ChromeREPL.sublime-settings')
     includeCommandLineAPI = settings.get('include_command_line_api', False)
     response = self.chrome.Runtime.evaluate(expression=expression,
                                             objectGroup='console',
