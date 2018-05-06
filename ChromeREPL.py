@@ -239,9 +239,9 @@ class ChromeReplConnectToTabCommand(sublime_plugin.WindowCommand):
 
     def is_user_tab(tab):
       is_page = tab['type'] == 'page'
-      is_devtools = tab['url'].find('chrome-devtools://') != -1
-      is_extension = tab['url'].find('chrome-extension://') != -1
-      is_resource = tab['url'].find('res:') != -1
+      is_devtools = tab['url'].startswith('chrome-devtools://')
+      is_extension = tab['url'].startswith('chrome-extension://')
+      is_resource = tab['url'].startswith('res:')
 
       is_junk = is_devtools or is_extension or is_resource
 
