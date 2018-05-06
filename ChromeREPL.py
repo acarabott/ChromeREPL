@@ -53,7 +53,7 @@ def get_chrome_path():
 def start_chrome():
   chrome_port = settings.get('port')
 
-  user_flags = settings.get("chrome_flags")
+  user_flags = settings.get('chrome_flags')
   flags = ['--remote-debugging-port={}'.format(chrome_port)] + user_flags
   if settings.get('auto_open_devtools', True):
     flags.append('--auto-open-devtools-for-tabs')
@@ -94,9 +94,9 @@ def start_chrome():
 
 def get_chrome_process():
   user_basename = os.path.basename(get_chrome_path())
-  is_linux_chrome = sublime.platform() == "linux" and user_basename != "chromium-browser"
+  is_linux_chrome = sublime.platform() == 'linux' and user_basename != 'chromium-browser'
 
-  basenames_to_check = (["chrome", "google-chrome"] if is_linux_chrome else [user_basename])
+  basenames_to_check = (['chrome', 'google-chrome'] if is_linux_chrome else [user_basename])
 
   for process in psutil.process_iter(attrs=['exe', 'status']):
     basename_matches = ('exe' in process.info and process.info['exe'] is not None and
@@ -140,7 +140,7 @@ def connect_to_chrome():
   global chrome
   chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
   set_tab_status()
-  sublime.active_window().run_command("chrome_repl_connect_to_tab")
+  sublime.active_window().run_command('chrome_repl_connect_to_tab')
   return True
 
 
@@ -171,7 +171,7 @@ def chrome_evaluate(expression):
 
 def chrome_print(expression, method='log', prefix='', color='rgb(150, 150, 150)'):
   expression = expression.strip()
-  if expression[-1] == ";":
+  if expression[-1] == ';':
     expression = expression[0:-1]
 
   log_expression = 'console.{}(`%cST {}`, "color:{};", {})'.format(method, prefix, color, expression)
@@ -183,7 +183,7 @@ def set_tab_status():
   if chrome is not None:
     for window in sublime.windows():
       for view in window.views():
-        status = "ChromeREPL Tab: {}".format(chrome.current_tab['title'])
+        status = 'ChromeREPL Tab: {}'.format(chrome.current_tab['title'])
         view.set_status(STATUS_KEY, status)
 
 
@@ -324,11 +324,11 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
       # try parsing as an expression and check for errors
       # will throw a Syntax Error if not object literal
       def create_parse_expression(code):
-        return "(async () => 0).constructor(`return {};`)".format(code)
+        return '(async () => 0).constructor(`return {};`)'.format(code)
 
       unwrapped_result = chrome_evaluate(create_parse_expression(code))
 
-      wrapped_code = "({})".format(code)
+      wrapped_code = '({})'.format(code)
       wrapped_result = chrome_evaluate(create_parse_expression(wrapped_code))
 
       is_object = ('exceptionDetails' not in unwrapped_result['result'].keys() and
@@ -345,25 +345,25 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
       result = response['result']['result']
 
       if 'exceptionDetails' in response['result'].keys():
-        method = "error"
+        method = 'error'
         print_text = '`{}`'.format(response['result']['exceptionDetails']['exception']['description'])
       elif 'description' in result.keys() and 'value' not in result.keys():
-        method = "log"
+        method = 'log'
         print_text = expression
       elif 'value' in result.keys() and result['value'] is not None:
-        method = "log"
+        method = 'log'
         template = '`"{}"`' if result['type'] == 'string' else '`{}`'
         value = str(result['value']).lower() if result['type'] == 'boolean' else result['value']
         print_text = template.format(value)
       elif 'subtype' in result.keys():
-        method = "log"
+        method = 'log'
         print_text = '`{}`'.format(result['subtype'])
       elif 'type' in result.keys():
-        method = "log"
+        method = 'log'
         print_text = '`{}`'.format(result['type'])
       else:
         # shouldn't reach here, included for debug
-        method = "log"
+        method = 'log'
         print_text = expression
 
       chrome_print(expression=print_text, method=method, prefix='out:')
@@ -374,12 +374,12 @@ class ChromeReplClearCommand(sublime_plugin.WindowCommand):
     return is_connected()
 
   def run(self):
-    chrome_evaluate("console.clear()")
+    chrome_evaluate('console.clear()')
 
 
 class ChromeReplReloadPageCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return is_connected()
 
-  def run(self, ignoreCache="False"):
-    chrome.Page.reload(args={"ignoreCache": ignoreCache == "True"})
+  def run(self, ignoreCache='False'):
+    chrome.Page.reload(args={'ignoreCache': ignoreCache == 'True'})
