@@ -33,7 +33,6 @@ STATUS_KEY = 'chrome-repl'
 def plugin_loaded():
   global settings
   settings = sublime.load_settings('ChromeREPL.sublime-settings')
-  # TODO settings listeners
 
 
 def plugin_unloaded():
