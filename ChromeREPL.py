@@ -126,12 +126,12 @@ def request_json_from_chrome():
     return None
 
 
-def is_chrome_running_with_remote_debugging():
-  if not is_chrome_running():
-    return False
+def is_remote_debugging_enabled():
+  return request_json_from_chrome() is not None
 
-  response = request_json_from_chrome()
-  return response is not None
+
+def is_chrome_running_with_remote_debugging():
+  return is_chrome_running() and is_remote_debugging_enabled()
 
 
 def connect_to_chrome():
@@ -217,7 +217,7 @@ class ChromeReplStartChromeCommand(sublime_plugin.WindowCommand):
 
 class ChromeReplRestartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return is_chrome_running()
+    return is_chrome_running() and not is_remote_debugging_enabled()
 
   def run(self):
     process = get_chrome_process()
