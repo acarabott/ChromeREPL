@@ -21,7 +21,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 """
 import socket
 
-import six
+import ChromeREPL.libs.six as six
 import sys
 
 from ._exceptions import *

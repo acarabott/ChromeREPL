@@ -13,7 +13,7 @@ import json
 import time
 
 import requests
-import websocket
+import ChromeREPL.libs.websocket as websocket
 
 
 TIMEOUT = 1

@@ -1,6 +1,6 @@
 import unittest
 
-from websocket._cookiejar import SimpleCookieJar
+from ChromeREPL.libs.websocket._cookiejar import SimpleCookieJar
 
 try:
     import Cookie

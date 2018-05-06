@@ -25,7 +25,7 @@ import socket
 import struct
 import threading
 
-import six
+import ChromeREPL.libs.six as six
 
 # websocket modules
 from ._abnf import *

@@ -8,15 +8,15 @@ import os
 import os.path
 import socket
 
-import six
+import ChromeREPL.libs.six as six
 
 # websocket-client
-import websocket as ws
-from websocket._handshake import _create_sec_websocket_key, \
+import ChromeREPL.libs.websocket as websocket as ws
+from ChromeREPL.libs.websocket._handshake import _create_sec_websocket_key, \
     _validate as _validate_header
-from websocket._http import read_headers
-from websocket._url import get_proxy_info, parse_url
-from websocket._utils import validate_utf8
+from ChromeREPL.libs.websocket._http import read_headers
+from ChromeREPL.libs.websocket._url import get_proxy_info, parse_url
+from ChromeREPL.libs.websocket._utils import validate_utf8
 
 if six.PY3:
     from base64 import decodebytes as base64decode

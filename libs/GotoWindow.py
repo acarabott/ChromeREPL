@@ -2,7 +2,7 @@ import os
 import sublime
 from subprocess import Popen, PIPE
 
-
+# TODO need to put cursor back where it was
 def focus_window(window):
   active_view = window.active_view()
   active_group = window.active_group()

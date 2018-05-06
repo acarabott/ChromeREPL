@@ -1,9 +1,10 @@
 import sublime
 import requests
 import re
-from ChromeREPLHelpers import *
-import GotoWindow
-import PyChromeDevTools
+import time
+import ChromeREPL.libs.ChromeREPLHelpers as ChromeREPLHelpers
+import ChromeREPL.libs.GotoWindow as GotoWindow
+import ChromeREPL.libs.PyChromeDevTools as PyChromeDevTools
 
 
 class ChromeREPLConnection():
@@ -18,12 +19,11 @@ class ChromeREPLConnection():
             else ChromeREPLConnection(sublime_view))
 
   def close_all_instances():
-    for instance in ChromeREPLConnection.instances.items():
-      print('close {}'.format(instance))
+    for instance in ChromeREPLConnection.instances.values():
       instance.close()
 
   def clear_statuses():
-    for instance in ChromeREPLConnection.instances.items():
+    for instance in ChromeREPLConnection.instances.values():
       instance.clear_tab_status()
 
   def is_user_tab(tab):
@@ -56,14 +56,14 @@ class ChromeREPLConnection():
 
   def is_connected(self):
     return (self.chrome is not None and
-            is_chrome_running_with_remote_debugging() and
+            ChromeREPLHelpers.is_chrome_running_with_remote_debugging() and
             self.chrome.ws.connected)
 
   def connect_to_chrome(self):
-    if not is_chrome_running_with_remote_debugging():
+    if not ChromeREPLHelpers.is_chrome_running_with_remote_debugging():
       return False
 
-    response = request_json_from_chrome()
+    response = ChromeREPLHelpers.request_json_from_chrome()
     if response is None:
       return False
 
@@ -102,6 +102,7 @@ class ChromeREPLConnection():
 
       self.set_tab_status()
 
+      global try_count, connected
       try_count = 0
       connected = False
 
@@ -218,8 +219,8 @@ class ChromeREPLConnection():
 
       self.chrome_print(expression=print_text, method=method, prefix='out:')
 
-  def reload(self):
-    self.chrome.Page.reload(args={'ignoreCache': ignoreCache == 'True'})
+  def reload(self, ignoreCache=False):
+    self.chrome.Page.reload(args={'ignoreCache': ignoreCache})
 
   def set_tab_status(self):
     if self.chrome is None:
@@ -228,7 +229,7 @@ class ChromeREPLConnection():
     status = 'ChromeREPL Tab: {}'.format(self.chrome.current_tab['title'])
     self.view.set_status(ChromeREPLConnection.STATUS_KEY, status)
 
-  def clear_tab_status():
+  def clear_tab_status(self):
     self.view.erase_status(ChromeREPLConnection.STATUS_KEY)
 
   def close(self):

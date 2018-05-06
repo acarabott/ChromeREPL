@@ -23,7 +23,7 @@ import hashlib
 import hmac
 import os
 
-import six
+import ChromeREPL.libs.six as six
 
 from ._cookiejar import SimpleCookieJar
 from ._exceptions import *

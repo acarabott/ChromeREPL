@@ -19,7 +19,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
     Boston, MA 02110-1335  USA
 
 """
-import six
+import ChromeREPL.libs.six as six
 
 __all__ = ["NoLock", "validate_utf8", "extract_err_message"]
 

@@ -24,7 +24,7 @@ import os
 import socket
 import sys
 
-import six
+import ChromeREPL.libs.six as six
 
 from ._exceptions import *
 from ._logging import *

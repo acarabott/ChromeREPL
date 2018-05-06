@@ -1,18 +1,9 @@
 import sublime
 import sublime_plugin
-import os
-import sys
 import subprocess
 
-
-# include the lib directory
-this_dir = os.path.dirname(os.path.realpath(__file__))
-lib_dir = os.path.join(this_dir, 'libs')
-if lib_dir not in sys.path:
-    sys.path.append(lib_dir)
-
-from ChromeREPLHelpers import *
-from ChromeREPLConnection import ChromeREPLConnection
+import ChromeREPL.libs.ChromeREPLHelpers as ChromeREPLHelpers
+from ChromeREPL.libs.ChromeREPLConnection import ChromeREPLConnection
 
 
 # Plugin setup / teardown
@@ -43,7 +34,7 @@ def start_chrome():
   if settings.get('auto_open_devtools', True):
     flags.append('--auto-open-devtools-for-tabs')
 
-  cmd = [get_chrome_path()] + flags
+  cmd = [ChromeREPLHelpers.get_chrome_path()] + flags
 
   try:
     subprocess.Popen(cmd)
@@ -58,7 +49,7 @@ def start_chrome():
 
 class ChromeReplStartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return not is_chrome_running()
+    return not ChromeREPLHelpers.is_chrome_running()
 
   def run(self):
     start_chrome()
@@ -66,10 +57,11 @@ class ChromeReplStartChromeCommand(sublime_plugin.WindowCommand):
 
 class ChromeReplRestartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return is_chrome_running() and not is_remote_debugging_enabled()
+    return (ChromeREPLHelpers.is_chrome_running() and
+            not ChromeREPLHelpers.is_remote_debugging_enabled())
 
   def run(self):
-    process = get_chrome_process()
+    process = ChromeREPLHelpers.get_chrome_process()
     if process is not None:
       process.terminate()
       process.wait()
@@ -78,7 +70,7 @@ class ChromeReplRestartChromeCommand(sublime_plugin.WindowCommand):
 
 class ChromeReplConnectToTabCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return is_chrome_running_with_remote_debugging()
+    return ChromeREPLHelpers.is_chrome_running_with_remote_debugging()
 
   def run(self):
     connection = ChromeREPLConnection.get_instance(self.window.active_view())
@@ -128,7 +120,7 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
       sublime.set_timeout(lambda: self.view.sel().add_all(prev), 10)
 
       # remove highlight and restore original selection
-      sublime.set_timeout(lambda: self.view.erase_regions(self.HIGHLIGHT_KEY), 500)
+      sublime.set_timeout(lambda: self.view.erase_regions(self.HIGHLIGHT_KEY), 50)
 
 
 class ChromeReplClearCommand(sublime_plugin.WindowCommand):
@@ -148,4 +140,4 @@ class ChromeReplReloadPageCommand(sublime_plugin.WindowCommand):
 
   def run(self, ignoreCache='False'):
     connection = ChromeREPLConnection.get_instance(self.window.active_view())
-    connection.reload()
+    connection.reload(ignoreCache == 'True')

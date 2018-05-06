@@ -29,12 +29,12 @@ import threading
 import time
 import traceback
 
-import six
+import ChromeREPL.libs.six as six
 
 from ._abnf import ABNF
 from ._core import WebSocket, getdefaulttimeout
 from ._exceptions import *
-from . import _logging
+import ChromeREPL.libs.websocket._logging
 
 
 __all__ = ["WebSocketApp"]

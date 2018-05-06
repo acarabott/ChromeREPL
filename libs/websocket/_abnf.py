@@ -23,7 +23,7 @@ import array
 import os
 import struct
 
-import six
+import ChromeREPL.libs.six as six
 
 from ._exceptions import *
 from ._utils import validate_utf8
