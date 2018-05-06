@@ -178,6 +178,16 @@ def chrome_print(expression, method='log', prefix='', color='rgb(150, 150, 150)'
   chrome_evaluate(log_expression)
 
 
+def activate_tab(tab_id):
+  try:
+    url = 'http://{}:{}/json/activate/{}'.format(settings.get('hostname'),
+                                                 settings.get('port'),
+                                                 tab_id)
+    return requests.post(url)
+  except requests.exceptions.ConnectionError as e:
+    return None
+
+
 def set_tab_status():
   global chrome
   if chrome is not None:
@@ -255,6 +265,7 @@ class ChromeReplConnectToTabCommand(sublime_plugin.WindowCommand):
     tab_index = chrome.tabs.index(tab)
     # not using connect_targetID so that chrome stores the connected tab
     chrome.connect(tab_index, False)
+    activate_tab(tab['id'])
 
     try:
       chrome_print("'Sublime Text connected'")
