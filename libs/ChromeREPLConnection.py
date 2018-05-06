@@ -2,6 +2,7 @@ import sublime
 import requests
 import re
 from ChromeREPLHelpers import *
+import GotoWindow
 import PyChromeDevTools
 
 
@@ -92,6 +93,7 @@ class ChromeREPLConnection():
       # not using connect_targetID so that chrome stores the connected tab
       self.chrome.connect(tab_index, False)
       ChromeREPLConnection.activate_tab(tab['id'])
+      GotoWindow.focus_window(self.view.window())
 
       try:
         self.chrome_print("'Sublime Text connected'")

@@ -61,7 +61,7 @@ Don't worry, commands are provided to do this for you 😅.
 
 The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas/SublimeWebInspector/tree/master), but is far less ambitious, not as opinionated, and thus easier to maintain.
 
-This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools).
+This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools), and a stripped down version of [Sublime Goto Window](https://github.com/ccampbell/sublime-goto-window).
 
 ## Author
 
