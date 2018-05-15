@@ -1,7 +1,6 @@
 import sublime
 import requests
 import re
-import time
 import ChromeREPL.ChromeREPLHelpers as ChromeREPLHelpers
 import ChromeREPL.libs.GotoWindow as GotoWindow
 import ChromeREPL.libs.PyChromeDevTools as PyChromeDevTools
@@ -11,11 +10,21 @@ class ChromeREPLConnection():
   instances = {}
   STATUS_KEY = 'chrome-repl'
 
+  def has_instance(sublime_view):
+    key = sublime_view.id()
+    return key in ChromeREPLConnection.instances
+
   def get_instance(sublime_view):
     key = sublime_view.id()
-    return (ChromeREPLConnection.instances[key]
-            if key in ChromeREPLConnection.instances
-            else ChromeREPLConnection(sublime_view))
+    exists = key in ChromeREPLConnection.instances
+    instance = (ChromeREPLConnection.instances[key]
+                if exists
+                else ChromeREPLConnection(sublime_view))
+
+    if not exists:
+      ChromeREPLConnection.instances[key] = instance
+
+    return instance
 
   def close_all_instances():
     for instance in ChromeREPLConnection.instances.values():
@@ -47,38 +56,19 @@ class ChromeREPLConnection():
 
   def __init__(self, sublime_view):
     super(ChromeREPLConnection, self).__init__()
-    self.chrome = None
+    settings = sublime.load_settings('ChromeREPL.sublime-settings')
+    self.chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'),
+                                                   auto_connect=False)
     self.view = sublime_view
     self.tabs = []
-
-    ChromeREPLConnection.instances[sublime_view.id()] = self
 
   def is_connected(self):
     return (self.chrome is not None and
             ChromeREPLHelpers.is_chrome_running_with_remote_debugging() and
+            self.chrome.ws is not None and
             self.chrome.ws.connected)
 
-  def connect_to_chrome(self):
-    if not ChromeREPLHelpers.is_chrome_running_with_remote_debugging():
-      return False
-
-    response = ChromeREPLHelpers.request_json_from_chrome()
-    if response is None:
-      return False
-
-    settings = sublime.load_settings('ChromeREPL.sublime-settings')
-    self.chrome = PyChromeDevTools.ChromeInterface(port=settings.get('port'))
-    self.set_tab_status()
-    sublime.active_window().run_command('chrome_repl_connect_to_tab')
-
-    return True
-
   def connect_to_tab(self):
-    if not self.is_connected():
-      self.connect_to_chrome()
-      if not self.is_connected():
-        return
-
     self.chrome.get_tabs()  # this doesn't return tabs, but updates them internally
     self.tabs = [tab for tab in self.chrome.tabs if ChromeREPLConnection.is_user_tab(tab)]
     labels = [tab['title'] for tab in self.tabs]
@@ -91,8 +81,8 @@ class ChromeREPLConnection():
       tab_index = self.chrome.tabs.index(tab)
       # not using connect_targetID so that chrome stores the connected tab
       self.chrome.connect(tab_index, False)
-      ChromeREPLConnection.activate_tab(tab['id'])
-      GotoWindow.focus_window(self.view.window())
+      # ChromeREPLConnection.activate_tab(tab['id'])
+      # GotoWindow.focus_window(self.view.window())
 
       try:
         self.chrome_print("'Sublime Text connected'")
@@ -100,31 +90,6 @@ class ChromeREPLConnection():
         sublime.error_message("Sublime could not connect to tab. Did it close?")
 
       self.set_tab_status()
-
-      global try_count, connected
-      try_count = 0
-      connected = False
-
-      def connect():
-        time.sleep(0.5)
-        global try_count, connected
-        if try_count < 5:
-          try_count += 1
-          try:
-            connected = self.connect_to_chrome()
-            if not connected:
-              connect()
-          except requests.exceptions.ConnectionError as e:
-            connect()
-        else:
-          connected = False
-
-      connect()
-
-      if not connected:
-        sublime.error_message("Failed to connect to Chrome")
-
-      return connected
 
     self.view.window().show_quick_panel(labels, tab_selected)
 
@@ -140,7 +105,6 @@ class ChromeREPLConnection():
                                             silent=False,
                                             returnByValue=False,
                                             generatePreview=False)
-    # print(response)
     return response
 
   def chrome_print(self, expression, method='log', prefix='', color='rgb(150, 150, 150)'):
@@ -229,6 +193,7 @@ class ChromeREPLConnection():
     self.view.set_status(ChromeREPLConnection.STATUS_KEY, status)
 
   def clear_tab_status(self):
+    self.view.set_status(ChromeREPLConnection.STATUS_KEY, "")
     self.view.erase_status(ChromeREPLConnection.STATUS_KEY)
 
   def close(self):
