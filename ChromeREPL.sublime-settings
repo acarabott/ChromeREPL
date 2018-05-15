@@ -4,6 +4,11 @@
         "windows": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         "linux": "/usr/bin/google-chrome"
     },
+    "focus_tab": {
+        "osx": true,
+        "windows": true,
+        "linux": false
+    },
     "auto_open_devtools": false,
     "hostname": "localhost",
     "port": 9222,

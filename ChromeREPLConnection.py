@@ -81,8 +81,11 @@ class ChromeREPLConnection():
       tab_index = self.chrome.tabs.index(tab)
       # not using connect_targetID so that chrome stores the connected tab
       self.chrome.connect(tab_index, False)
-      ChromeREPLConnection.activate_tab(tab['id'])
-      GotoWindow.focus_window(self.view.window())
+
+      settings = sublime.load_settings('ChromeREPL.sublime-settings')
+      if settings.get('focus_tab')[sublime.platform()]:
+        ChromeREPLConnection.activate_tab(tab['id'])
+        GotoWindow.focus_window(self.view.window())
 
       try:
         self.chrome_print("'Sublime Text connected'")
