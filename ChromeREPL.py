@@ -76,8 +76,7 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
   HIGHLIGHT_SCOPE = 'chromerepl-eval'
 
   def is_enabled(self):
-    connection = ChromeREPLConnection.get_instance(self.view)
-    return connection.is_connected()
+    return ChromeREPLConnection.is_instance_connected(self.view)
 
   def run(self, edit):
     connection = ChromeREPLConnection.get_instance(self.view)
@@ -119,8 +118,7 @@ class ChromeReplEvaluateCommand(sublime_plugin.TextCommand):
 
 class ChromeReplClearCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    connection = ChromeREPLConnection.get_instance(self.window.active_view())
-    return connection.is_connected
+    return ChromeREPLConnection.is_instance_connected(self.window.active_view())
 
   def run(self):
     connection = ChromeREPLConnection.get_instance(self.window.active_view())
@@ -129,8 +127,7 @@ class ChromeReplClearCommand(sublime_plugin.WindowCommand):
 
 class ChromeReplReloadPageCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    connection = ChromeREPLConnection.get_instance(self.window.active_view())
-    return connection.is_connected
+    return ChromeREPLConnection.is_instance_connected(self.window.active_view())
 
   def run(self, ignoreCache='False'):
     connection = ChromeREPLConnection.get_instance(self.window.active_view())

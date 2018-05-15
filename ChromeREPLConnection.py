@@ -26,6 +26,13 @@ class ChromeREPLConnection():
 
     return instance
 
+  def is_instance_connected(sublime_view):
+    if not ChromeREPLConnection.has_instance(sublime_view):
+      return False
+
+    instance = ChromeREPLConnection.get_instance(sublime_view)
+    return instance.is_connected()
+
   def close_all_instances():
     for instance in ChromeREPLConnection.instances.values():
       instance.close()
