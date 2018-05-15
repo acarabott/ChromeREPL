@@ -52,6 +52,7 @@ Don't worry, commands are provided to do this for you 😅.
 ## Settings
 
 - 📁 Path to Chrome (can be Chrome, Canary, or Chromium)
+- 👀 Automatically focus on connected Chrome tab (requires `wmctrl` on Linux)
 - 🔧 Automatically opening the Developer Tools for every new window
 - 🏳️ Additional chrome flags
 - ⌨️ Enabling the [Command Line API](https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference)

@@ -7,7 +7,7 @@
     "focus_tab": {
         "osx": true,
         "windows": true,
-        "linux": false
+        "linux": false // depends on wmctrl, install if you want to enable
     },
     "auto_open_devtools": false,
     "hostname": "localhost",
