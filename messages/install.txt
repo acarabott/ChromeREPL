@@ -1,0 +1,28 @@
+# ChromeREPL
+
+Thanks for installing ChromeREPL!
+
+## Workflow
+
+The basic workflow is (via the command palette)
+
+- `ChromeREPL: Start Chrome` or `ChromeREPL: Restart Chrome`
+- `ChromeREPL: Connect to Tab`
+- Select the desired tab
+- Open Chrome Devtools in the browser
+- Execute code from Sublime!
+    + MacOS: ctrl enter
+    + Win/Linux: alt enter
+
+## Settings
+
+In Settings you can change the path to Chrome (in case you want to use Chromium or Canary).
+
+There is also the option to focus the tab in Chrome when connecting.
+
+### Linux Users
+
+By default tab focusing is disabled in Linux as it relies on `wmctrl`, if you install this (e.g. via `apt-get`) you can enable this
+
+
+See the repo for more info: https://github.com/acarabott/ChromeREPL/
