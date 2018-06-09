@@ -64,6 +64,10 @@ The project was inspired by [SublimeWebInspector](https://github.com/sokolovstas
 
 This uses a *ever so slightly* modified version of [PyChromeDevTools](https://github.com/marty90/PyChromeDevTools), and a stripped down version of [Sublime Goto Window](https://github.com/ccampbell/sublime-goto-window).
 
+## Known Issues
+
+This plugin relies on [psutil](https://github.com/giampaolo/psutil). The latest version of psutil requires Python 3.4. This means we are stuck with 5.4.1 which has a [known issue](https://github.com/giampaolo/psutil/issues/1044) on macOS to do with zombie processes. If the only option in the command palette is `Restart Chrome` then you may need to reboot your machine to clear the issue.
+
 ## Author
 
 Arthur Carabott - [arthurcarabott.com](https://arthurcarabott.com)
