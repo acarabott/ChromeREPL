@@ -3,6 +3,8 @@ import os
 import psutil
 import requests
 
+zombie_message_shown = False
+
 
 def get_chrome_path():
   settings = sublime.load_settings('ChromeREPL.sublime-settings')
@@ -24,7 +26,10 @@ def get_chrome_process():
       if basename_matches and not is_zombie:
         return process
   except Exception as e:
-    sublime.error_message("You have a zombie Chrome Process. Try killing it or restarting your machine")
+    global zombie_message_shown
+    if not zombie_message_shown:
+      sublime.error_message("You may have a zombie Chrome Process. If Chrome won't start, try killing it or restarting your machine")
+      zombie_message_shown = True
 
   return None
 
