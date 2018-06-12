@@ -11,7 +11,7 @@ import socket
 import ChromeREPL.libs.six as six
 
 # websocket-client
-import ChromeREPL.libs.websocket as websocket as ws
+import ChromeREPL.libs.websocket as ws
 from ChromeREPL.libs.websocket._handshake import _create_sec_websocket_key, \
     _validate as _validate_header
 from ChromeREPL.libs.websocket._http import read_headers
