@@ -1,11 +1,19 @@
 [
   {
-    "caption": "Chrome REPL: Start Chrome",
+    "caption": "Chrome REPL: Start Chrome (Secure) - use new profile",
     "command": "chrome_repl_start_chrome"
   },
   {
-    "caption": "Chrome REPL: Restart Chrome with remote debugging (did you set Chrome to restore tabs?)",
+    "caption": "Chrome REPL: Start Chrome (SECURITY RISK!) - use normal profile",
+    "command": "chrome_repl_start_chrome_normal_profile"
+  },
+  {
+    "caption": "Chrome REPL: Restart Chrome (Secure) - use new profile",
     "command": "chrome_repl_restart_chrome"
+  },
+  {
+    "caption": "Chrome REPL: Restart Chrome (SECURITY RISK!) - use normal profile",
+    "command": "chrome_repl_restart_chrome_normal_profile"
   },
   {
     "caption": "Chrome REPL: Connect to Tab",

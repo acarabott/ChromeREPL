@@ -1,8 +1,4 @@
 {
-    // using the default chrome profile is potentially risky, as someone else
-    // on your network can access the cookies for your tabs
-    // enable only if you are sure!
-    "use_default_chrome_profile": false,
     "path": {
         "osx": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
         "windows": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",

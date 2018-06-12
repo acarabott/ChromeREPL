@@ -19,7 +19,7 @@ def plugin_unloaded():
 # ------------------------------------------------------------------------------
 
 
-def start_chrome():
+def start_chrome(use_default_chrome_profile=False):
   settings = sublime.load_settings('ChromeREPL.sublime-settings')
 
   chrome_port = settings.get('port')
@@ -30,7 +30,7 @@ def start_chrome():
       '--remote-debugging-port={}'.format(chrome_port),
   ] + user_flags
 
-  if not settings.get('use_default_chrome_profile'):
+  if not use_default_chrome_profile:
     data_dir = tempfile.TemporaryDirectory()
     flags.append('--user-data-dir={}'.format(data_dir))
 
@@ -54,21 +54,40 @@ class ChromeReplStartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
     return not ChromeREPLHelpers.is_chrome_running()
 
+  def start_chrome(self, use_default_chrome_profile):
+    start_chrome(use_default_chrome_profile)
+
   def run(self):
-    start_chrome()
+    use_default_chrome_profile = False
+    self.start_chrome(use_default_chrome_profile)
+
+
+class ChromeReplStartChromeNormalProfileCommand(ChromeReplStartChromeCommand):
+  def run(self):
+    use_default_chrome_profile = True
+    self.start_chrome(use_default_chrome_profile)
 
 
 class ChromeReplRestartChromeCommand(sublime_plugin.WindowCommand):
   def is_enabled(self):
-    return (ChromeREPLHelpers.is_chrome_running() and
-            not ChromeREPLHelpers.is_remote_debugging_enabled())
+    return ChromeREPLHelpers.is_chrome_running()
 
-  def run(self):
+  def restart_chrome(self, use_default_chrome_profile):
     process = ChromeREPLHelpers.get_chrome_process()
     if process is not None:
       process.terminate()
       process.wait()
-      start_chrome()
+      start_chrome(use_default_chrome_profile)
+
+  def run(self):
+    use_default_chrome_profile = False
+    self.restart_chrome(use_default_chrome_profile)
+
+
+class ChromeReplRestartChromeNormalProfileCommand(ChromeReplRestartChromeCommand):
+  def run(self):
+    use_default_chrome_profile = True
+    self.restart_chrome(use_default_chrome_profile)
 
 
 class ChromeReplConnectToTabCommand(sublime_plugin.WindowCommand):
