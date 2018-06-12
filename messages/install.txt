@@ -2,9 +2,15 @@
 
 Thanks for installing ChromeREPL!
 
+## 🚨 Security 🚨
+
+When Chrome starts it will use a new Chrome user profile. This is because the Chrome DevTools protocol (that is used for communication) opens a port for communication, but also exposes your cookies. To prevent people on your network from sniffing your important cookies (e.g. website logins), a temporary Chrome user profile is used by default.
+
+You *can choose* to use your default Chrome profile, but you should only do so if you are not connected to a network.
+
 ## Workflow
 
-The basic workflow is (via the command palette)
+The basic workflow is (via the command palette: macOS: `cmd shift P`, win/lin: `ctrl shift P`)
 
 - `ChromeREPL: Start Chrome` or `ChromeREPL: Restart Chrome`
 - `ChromeREPL: Connect to Tab`
