@@ -26,10 +26,16 @@ Chrome needs to be started with a special flag 🏳️ (`--remote-debugging-port
 
 Don't worry, commands are provided to do this for you 😅.
 
+Run them by opening the Command Pallete (macOS: `cmd shift P`, win/lin: `ctrl shift P`).
+
 1. If you haven't opened Chrome, use the `Chrome REPL: Start Chrome` command.
 2. If Chrome is already running, use `Chrome REPL: Restart Chrome with remote debugging`*
 
 >**this will quit and re-open Chrome, if you want to preserve your tabs, make sure you have set this behaviour in Chrome's settings: `On start-up: Continue where you left off`.*
+
+### 🚨 Security Warning: New User Profile 🚨
+
+When Chrome restarts, it will use a new Chrome user profile. This is because the Chrome DevTools protocol (that is used for communication) opens a port for communication, but also exposes your cookies. To prevent people on your network from sniffing your important cookies (e.g. website logins), a temporary Chrome user profile is used.
 
 ## Usage
 
