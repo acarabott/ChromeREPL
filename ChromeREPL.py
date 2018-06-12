@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 import subprocess
+import tempfile
 
 import ChromeREPL.ChromeREPLHelpers as ChromeREPLHelpers
 from ChromeREPL.ChromeREPLConnection import ChromeREPLConnection
@@ -24,7 +25,15 @@ def start_chrome():
   chrome_port = settings.get('port')
 
   user_flags = settings.get('chrome_flags')
-  flags = ['--remote-debugging-port={}'.format(chrome_port)] + user_flags
+
+  flags = [
+      '--remote-debugging-port={}'.format(chrome_port),
+  ] + user_flags
+
+  if not settings.get('use_default_chrome_profile'):
+    data_dir = tempfile.TemporaryDirectory()
+    flags.append('--user-data-dir={}'.format(data_dir))
+
   if settings.get('auto_open_devtools', True):
     flags.append('--auto-open-devtools-for-tabs')
 
